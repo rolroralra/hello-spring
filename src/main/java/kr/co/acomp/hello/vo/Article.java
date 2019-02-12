@@ -4,7 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 
-@Getter 
+@Getter
 @Setter
 public class Article {
 	private int articleId;
@@ -24,13 +24,11 @@ public class Article {
 		this.title = title;
 		this.content = content;
 	}
-	
-	
 
 	@Override
 	public String toString() {
 		return "Article [articleId=" + articleId + ", author=" + author + ", title=" + title + ", content=" + content
 				+ "]";
 	}
-	
+
 }

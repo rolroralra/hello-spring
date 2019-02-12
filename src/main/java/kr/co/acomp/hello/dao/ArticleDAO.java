@@ -8,7 +8,13 @@ import kr.co.acomp.hello.vo.Article;
 public class ArticleDAO {
 	
 	public void insertArticle(Article article) {
+		System.out.println(article);
 		System.out.println("insert ok...");
+	}
+
+	public Article selectArticleById(String articleId) {
+		Article article = new Article(Integer.parseInt(articleId), "lee", "test", "test");
+		return article;
 	}
 	
 }

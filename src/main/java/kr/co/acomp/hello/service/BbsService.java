@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
 
 import kr.co.acomp.hello.dao.ArticleDAO;
 import kr.co.acomp.hello.vo.Article;
@@ -31,5 +30,9 @@ public class BbsService {
 	public List<Article> getAllArticles() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	public Article viewArticleDetail(String articleId) {
+		return articleDAO.selectArticleById(articleId);
 	}
 }

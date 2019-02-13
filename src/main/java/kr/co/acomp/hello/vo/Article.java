@@ -1,5 +1,7 @@
 package kr.co.acomp.hello.vo;
 
+import java.lang.reflect.Field;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -23,6 +25,13 @@ public class Article {
 		this.author = author;
 		this.title = title;
 		this.content = content;
+	}
+
+	public Article(Article article) throws IllegalArgumentException, IllegalAccessException, NoSuchFieldException, SecurityException {
+		for (Field field : this.getClass().getDeclaredFields()) {
+			field.setAccessible(true);
+			field.set(this, field.get(article));
+		}
 	}
 
 	@Override

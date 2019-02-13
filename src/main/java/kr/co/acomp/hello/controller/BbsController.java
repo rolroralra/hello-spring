@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -61,15 +62,26 @@ public class BbsController {
 //		return "write_ok";
 //	}
 	
+	
 	@PostMapping("/write")
-	public ModelAndView doWrite(Article article) {
-		System.out.println("write");
-		bbsService.registerArticle(article);
-		
-		System.out.println("post request");
-		
-		return new ModelAndView("write_ok").addObject("article", article);
+	@ResponseBody
+	public Article write(@RequestBody Article article) throws IllegalArgumentException, IllegalAccessException, NoSuchFieldException, SecurityException {
+//		Article a = new Article(article);
+		Article a = article;
+		return a;
 	}
+	
+	
+	/* x-www-form-urlencoded, form-data */
+//	@PostMapping("/write")
+//	public ModelAndView doWrite(Article article) {
+//		System.out.println("write");
+//		bbsService.registerArticle(article);
+//		
+//		System.out.println("post request");
+//		
+//		return new ModelAndView("write_ok").addObject("article", article);
+//	}
 	
 	@GetMapping("/write")
 	public String write() {

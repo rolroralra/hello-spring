@@ -8,5 +8,9 @@
 </head>
 <body>
 	<h1>write ok...</h1>
+	<h2>${article.articleId }</h2>
+	<h2>${article.author }</h2>
+	<h2>${article.title }</h2>
+	<h2>${article.content }</h2>
 </body>
 </html>

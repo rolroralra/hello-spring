@@ -31,6 +31,11 @@ public class BbsController {
 //		return "write_ok";
 //	}
 	
+	@GetMapping("")
+	public String index() {
+		return "index";
+	}
+	
 	
 	@RequestMapping(value="/", method=RequestMethod.GET)
 	public String helloWorld() {
@@ -63,6 +68,7 @@ public class BbsController {
 //	}
 	
 	
+	/* JSON (raw) :: Request Body Type */
 	@PostMapping("/write")
 	@ResponseBody
 	public Article write(@RequestBody Article article) throws IllegalArgumentException, IllegalAccessException, NoSuchFieldException, SecurityException {
@@ -72,7 +78,7 @@ public class BbsController {
 	}
 	
 	
-	/* x-www-form-urlencoded, form-data */
+	/* x-www-form-urlencoded :: Request Body Type */
 //	@PostMapping("/write")
 //	public ModelAndView doWrite(Article article) {
 //		System.out.println("write");

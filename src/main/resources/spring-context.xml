@@ -26,6 +26,6 @@
 		<property name="articleDAO" ref="articleDAO"/>
 	</bean> -->
 	
-	<context:component-scan base-package="kr.co.acomp.hello"/>
+	<!-- <context:component-scan base-package="kr.co.acomp.hello"/> -->
 	
 </beans>

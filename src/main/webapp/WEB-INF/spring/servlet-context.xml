@@ -7,7 +7,9 @@
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
 
 	<!-- Context Component Scan -->
-	<context:component-scan base-package="kr.co.acomp.hello" />
+	<context:component-scan base-package="kr.co.acomp.hello" use-default-filters="false">
+		<context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+	</context:component-scan>
 
 	<!-- Spring MVC Annotation -->
 	<mvc:annotation-driven />
@@ -31,7 +33,9 @@
 	</bean>
 
 
-	<context:property-placeholder location="classpath:config/database.properties" />
+
+	<!-- Move Bean(relative to DB) configuration  -->
+	<!-- <context:property-placeholder location="classpath:config/database.properties" />
 
 	<bean id="dataSource" class="org.springframework.jdbc.datasource.SimpleDriverDataSource"> 
 		<property name="driverClass" value="${db.driverClass}"/> 
@@ -45,6 +49,6 @@
 		<property name="url" value="jdbc:mysql://localhost:3306/spring"/>
 		<property name="username" value="spring"/> 
 		<property name="password" value="spring"/>
-	</bean>
+	</bean> -->
 
 </beans>

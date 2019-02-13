@@ -20,7 +20,8 @@
 	</bean>
 	
 	<!-- Static Web Resource -->
-	<mvc:resources location="/WEB-INF/resources/" mapping="/resources/**"/>
+	<!-- Should make unable when test by JUnit4  -->
+	<!-- <mvc:resources location="/WEB-INF/resources/" mapping="/resources/**"/> -->
 	
 	<!--  Multipart Form Data  CommonsMultipartResolver Bean :: File Upload -->
 	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">

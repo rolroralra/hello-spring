@@ -13,7 +13,12 @@ public class ArticleDAO {
 	}
 
 	public Article selectArticleById(String articleId) {
-		Article article = new Article(Integer.parseInt(articleId), "lee", "test", "test");
+		Article article;
+		try {
+			article = new Article(Integer.parseInt(articleId), "lee", "test", "test");
+		} catch (NumberFormatException e) {
+			article = new Article(999, "lee", "test", "test");
+		}
 		return article;
 	}
 	

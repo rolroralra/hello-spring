@@ -20,9 +20,11 @@ public class FileUploadController {
 						 Model model) throws IllegalStateException, IOException {
 		
 		if (!file.isEmpty()) {
+//			String fileRandomName = UUID.randomUUID().toString();
 			File newFile = new File("C:\\upload", file.getOriginalFilename());
 			file.transferTo(newFile);
 		}
+		
 		
 		model.addAttribute("fileName", fileName);
 		return "upload_ok";

@@ -1,11 +1,7 @@
 package kr.co.acomp.hello;
 
-import org.mybatis.spring.SqlSessionFactoryBean;
-import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import org.springframework.jdbc.datasource.SimpleDriverDataSource;
-import org.springframework.web.WebApplicationInitializer;
 
 import kr.co.acomp.hello.dao.AnotherDAO;
 import kr.co.acomp.hello.dao.HelloDAO;
@@ -44,9 +40,6 @@ public class HelloMain {
 		System.out.println(article.getTitle());
 		System.out.println(article.getContent());
 		
-		
-		SqlSessionTemplate a;
-		SqlSessionFactoryBean b;
 		
 	}
 }

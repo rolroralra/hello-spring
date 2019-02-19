@@ -33,7 +33,6 @@
 	</bean>
 
 
-
 	<!-- Move Bean(relative to DB) configuration  -->
 	<!-- <context:property-placeholder location="classpath:config/database.properties" />
 
@@ -50,5 +49,7 @@
 		<property name="username" value="spring"/> 
 		<property name="password" value="spring"/>
 	</bean> -->
+	
+	
 
 </beans>

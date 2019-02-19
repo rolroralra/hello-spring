@@ -5,7 +5,6 @@ import org.junit.AfterClass;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.BeforeClass;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,9 +35,20 @@ public class ArticleDAOTest {
 //		ctx = new FileSystemXmlApplicationContext("file:src/main/webapp/WEB-INF/spring/*.xml");
 	}
 	
+	@Before
+	public void before2() {
+		System.out.println("Before2...");
+//		ctx = new FileSystemXmlApplicationContext("file:src/main/webapp/WEB-INF/spring/*.xml");
+	}
+	
 	@After
 	public void after() {
 		System.out.println("After...");
+	}
+	
+	@After
+	public void after2() {
+		System.out.println("After2...");
 	}
 	
 	@AfterClass
@@ -52,7 +62,6 @@ public class ArticleDAOTest {
 	// for Static Web Resource,
 	// there will make some Error in ResourceHttpRequestHandler
 	@Test
-	@Ignore
 	public void testSelectArticleById() {
 //		ctx = new FileSystemXmlApplicationContext("file:src/main/webapp/WEB-INF/spring/*.xml");
 		
@@ -63,7 +72,7 @@ public class ArticleDAOTest {
 		
 		System.out.println(article);
 		
-		Assert.assertTrue(article.getAuthor().equals("lee1"));
+		Assert.assertTrue(article.getAuthor().equals("lee"));
 		
 		
 		

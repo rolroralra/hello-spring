@@ -2,6 +2,7 @@ package kr.co.acomp.hello;
 
 import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.web.WebApplicationInitializer;
 
 import kr.co.acomp.hello.dao.AnotherDAO;
 import kr.co.acomp.hello.dao.HelloDAO;
@@ -29,7 +30,6 @@ public class HelloMain {
 		
 		System.out.println(helloService.addTwoNumberAndSqaure(2, 3));
 		
-
 		
 		BbsService bbsService = ctx.getBean("bbsService", BbsService.class);
 		

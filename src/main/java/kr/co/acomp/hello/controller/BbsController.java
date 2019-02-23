@@ -33,6 +33,7 @@ public class BbsController {
 	
 	@GetMapping("")
 	public String index() {
+		bbsService.testService();
 		return "index";
 	}
 	
@@ -136,5 +137,33 @@ public class BbsController {
 										   .addObject("name", name)
 										   .addObject("password", password);
 	}
+	
+	@RequestMapping(value="/article", method=RequestMethod.POST)
+	@ResponseBody
+	public Article registerArticle(@RequestBody Article article) {
+		bbsService.registerArticle(article);
+		return article;
+	}
+	
+	@RequestMapping(value="/article/{articleId}", method=RequestMethod.GET)
+	@ResponseBody
+	public Article selectArticle(@PathVariable String articleId) {
+		return bbsService.getArticleById(articleId);
+	}
+	
+	@RequestMapping(value="/articles", method=RequestMethod.POST)
+	@ResponseBody
+	public List<Article> selectArticle(@RequestBody List<String> idList) {
+		return bbsService.getArticlesByIds(idList);
+	}
+	
+	@RequestMapping(value="/articles", method=RequestMethod.PUT)
+	@ResponseBody
+	public List<Article> selectArticle(@RequestBody Article article) {
+		return bbsService.getArticles(article);
+	}
+	
+	
+	
 	
 }

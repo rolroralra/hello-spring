@@ -39,7 +39,5 @@ public class HelloMain {
 		System.out.println(article.getAuthor());
 		System.out.println(article.getTitle());
 		System.out.println(article.getContent());
-		
-		
 	}
 }

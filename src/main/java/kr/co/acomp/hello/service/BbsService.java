@@ -28,11 +28,27 @@ public class BbsService {
 	}
 
 	public List<Article> getAllArticles() {
-		// TODO Auto-generated method stub
 		return null;
+	}
+	
+	public Article getArticleById(String articleId) {
+		return articleDAO.selectArticleById(articleId);
 	}
 
 	public Article viewArticleDetail(String articleId) {
 		return articleDAO.selectArticleById(articleId);
 	}
+	
+	public void testService() {
+		System.out.println("target invoked..");
+	}
+
+	public List<Article> getArticlesByIds(List<String> idList) {
+		return articleDAO.selectArticlesByIds(idList);
+	}
+
+	public List<Article> getArticles(Article article) {
+		return articleDAO.selectArticles(article);
+	}
+	
 }

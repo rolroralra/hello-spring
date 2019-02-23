@@ -1,5 +1,7 @@
 package kr.co.acomp.hello.dao;
 
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -31,4 +33,13 @@ public class ArticleDAO {
 //		return article;
 	}
 	
+	
+	public List<Article> selectArticlesByIds(List<String> idList) {
+		return sqlSession.selectList("mappers.article-mapper.selectArticlesByIds", idList);
+	}
+	
+	
+	public List<Article> selectArticles(Article article) {
+		return sqlSession.selectList("mappers.article-mapper.selectArticles", article);
+	}
 }

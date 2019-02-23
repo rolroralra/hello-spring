@@ -3,18 +3,53 @@
 <mapper namespace="mappers.article-mapper">
 
 	<insert id="insertArticle" parameterType="kr.co.acomp.hello.vo.Article">
-		insert into Article(article_id, author, title, content)
+		insert into Article(id, author, title, content)
 		values(#{articleId}, #{author}, #{title}, #{content})
 	</insert>
 	
 	<select id="selectArticleById" 
-			resultType="kr.co.acomp.hello.vo.Article" 
+			resultType="kr.co.acomp.hello.vo.Article"
 			parameterType="string">
-		select	article_id as articleId,
+		select	id as articleId,
 				author,
 				title,
 				content
 		from	article
-		where	article_id = #{articleId}
+		where	id = #{articleId}
+	</select>
+	
+	
+	<select id="selectArticlesByIds" resultType="kr.co.acomp.hello.vo.Article">
+		SELECT	id as articleId,
+				author,
+				title,
+				content
+		FROM 	ARTICLE 
+		WHERE 	id in
+		<foreach collection="list" item="id" index="index" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</select>
+	
+	<select id="selectArticles" parameterType="kr.co.acomp.hello.vo.Article" resultType="kr.co.acomp.hello.vo.Article">
+		SELECT	id as articleId,
+				author,
+				title,
+				content
+		FROM 	ARTICLE
+		<trim prefix="WHERE" prefixOverrides="AND">
+			<if test="articleId != null">
+				AND id = #{articleId}
+			</if>
+			<if test="author != null">
+				AND  author = #{author}
+			</if>
+			<if test="title != null">
+				AND  title = #{title}
+			</if>
+			<if test="content != null">
+				AND content = #{content}
+			</if>
+		</trim>
 	</select>
 </mapper>

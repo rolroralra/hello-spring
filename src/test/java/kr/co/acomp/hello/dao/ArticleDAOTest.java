@@ -5,6 +5,7 @@ import org.junit.AfterClass;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,8 +15,8 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import kr.co.acomp.hello.vo.Article;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration("file:src/main/webapp/WEB-INF/spring/servlet-context.xml")
-//@ContextConfiguration("file:src/main/webapp/WEB-INF/spring/*.xml")
+//@ContextConfiguration("file:src/main/webapp/WEB-INF/spring/servlet-context.xml")
+@ContextConfiguration("file:src/main/webapp/WEB-INF/spring/root-context.xml")
 public class ArticleDAOTest {
 	
 //	private ApplicationContext ctx;
@@ -61,6 +62,7 @@ public class ArticleDAOTest {
 	// If mvc:resources configuration exists 
 	// for Static Web Resource,
 	// there will make some Error in ResourceHttpRequestHandler
+	@Ignore
 	@Test
 	public void testSelectArticleById() {
 //		ctx = new FileSystemXmlApplicationContext("file:src/main/webapp/WEB-INF/spring/*.xml");
@@ -78,8 +80,14 @@ public class ArticleDAOTest {
 		
 	}
 	
+	@Ignore
 	@Test
 	public void testInsertArticle() {
 		articleDAO.insertArticle(null);
+	}
+	
+	@Test
+	public void test() {
+		articleDAO.insertArticle(new Article(1001, "shinyoun Kim", "test title 101", "....."));
 	}
 }

@@ -23,7 +23,7 @@
 
 	<!-- Static Web Resource -->
 	<!-- Should make unable when test by JUnit4 -->
-	<mvc:resources location="/WEB-INF/resources/" mapping="/resources/**"/>
+	<!-- <mvc:resources location="/WEB-INF/resources/" mapping="/resources/**"/> -->
 
 	<!-- Multipart Form Data CommonsMultipartResolver Bean :: File Upload -->
 	<bean id="multipartResolver"

@@ -33,7 +33,8 @@ public class BbsController {
 	
 	@GetMapping("")
 	public String index() {
-		bbsService.testService();
+//		bbsService.testService();
+		bbsService.registerArticle(new Article(5, "kim", "test", "test"));
 		return "index";
 	}
 	

@@ -36,8 +36,17 @@
 	</bean>
 	
 	
-	<aop:aspectj-autoproxy/>
+	<!-- Way1.  -->
+	<!-- <aop:aspectj-autoproxy/> -->
 	
+	<bean id="aspectBean" class="kr.co.acomp.hello.aspect.MeasuringAspect"/>
+	
+	<aop:config>
+		<aop:pointcut expression="execution(* kr.co.acomp.hello..*.*(..))" id="allPointCut"/>
+		<aop:aspect ref="aspectBean">
+			<aop:around method="measuringMethod" pointcut-ref="allPointCut"/>
+		</aop:aspect>
+	</aop:config>
 	
 	
 </beans>

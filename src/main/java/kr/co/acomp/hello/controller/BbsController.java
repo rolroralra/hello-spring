@@ -75,8 +75,11 @@ public class BbsController {
 	@ResponseBody
 	public Article write(@RequestBody Article article) throws IllegalArgumentException, IllegalAccessException, NoSuchFieldException, SecurityException {
 //		Article a = new Article(article);
-		Article a = article;
-		return a;
+//		Article a = article;
+		
+		bbsService.registerArticle(article);
+		
+		return article;
 	}
 	
 	

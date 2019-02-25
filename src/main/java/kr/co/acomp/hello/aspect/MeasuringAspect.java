@@ -13,13 +13,16 @@ public class MeasuringAspect {
 	public Object measuringMethod(ProceedingJoinPoint joinPoint) throws Throwable {
 		
 		long start = System.currentTimeMillis();
+		Object result = null;
 		
 		try {
-			return joinPoint.proceed();
+			result = joinPoint.proceed();
+			return result;
 		} finally {
 			long end = System.currentTimeMillis();
 			String targetMethodName = joinPoint.getSignature().getName();
 			System.out.println(targetMethodName + " running time is " + (end - start));
+			System.out.println("result : " + result);
 		}
 	}
 	

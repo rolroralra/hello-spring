@@ -88,6 +88,7 @@ public class ArticleDAOTest {
 	
 	@Test
 	public void test() {
-		articleDAO.insertArticle(new Article(1001, "shinyoun Kim", "test title 101", "....."));
+//		articleDAO.insertArticle(new Article(1001, "shinyoun Kim", "test title 101", "....."));
+		articleDAO.selectArticleById("1002");
 	}
 }

@@ -14,7 +14,7 @@
 				author,
 				title,
 				content
-		from	article
+		from	spring.article
 		where	id = #{articleId}
 	</select>
 	
@@ -24,7 +24,7 @@
 				author,
 				title,
 				content
-		FROM 	ARTICLE 
+		FROM 	spring.ARTICLE 
 		WHERE 	id in
 		<foreach collection="list" item="id" index="index" open="(" separator="," close=")">
 			#{id}
@@ -36,7 +36,7 @@
 				author,
 				title,
 				content
-		FROM 	ARTICLE
+		FROM 	spring.ARTICLE
 		<trim prefix="WHERE" prefixOverrides="AND">
 			<if test="articleId != null">
 				AND id = #{articleId}

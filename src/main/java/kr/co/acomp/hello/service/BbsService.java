@@ -53,4 +53,5 @@ public class BbsService {
 		return articleDAO.selectArticles(article);
 	}
 	
+	
 }

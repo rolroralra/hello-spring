@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mappers.article-mapper">
+
+	<insert id="insertArticle" parameterType="kr.co.acomp.hello.vo.Article">
+		insert into Article(id, author, title, content)
+		values(#{articleId}, #{author}, #{title}, #{content})
+	</insert>
+	
+	<select id="selectArticleById" 
+			resultType="kr.co.acomp.hello.vo.Article"
+			parameterType="string">
+		select	id as articleId,
+				author,
+				title,
+				content
+		from	spring.article
+		where	id = #{articleId}
+	</select>
+	
+	
+	<select id="selectArticlesByIds" resultType="kr.co.acomp.hello.vo.Article">
+		SELECT	id as articleId,
+				author,
+				title,
+				content
+		FROM 	spring.ARTICLE 
+		WHERE 	id in
+		<foreach collection="list" item="id" index="index" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</select>
+	
+	<select id="selectArticles" parameterType="kr.co.acomp.hello.vo.Article" resultType="kr.co.acomp.hello.vo.Article">
+		SELECT	id as articleId,
+				author,
+				title,
+				content
+		FROM 	spring.ARTICLE
+		<trim prefix="WHERE" prefixOverrides="AND">
+			<if test="articleId != null">
+				AND id = #{articleId}
+			</if>
+			<if test="author != null">
+				AND  author = #{author}
+			</if>
+			<if test="title != null">
+				AND  title = #{title}
+			</if>
+			<if test="content != null">
+				AND content = #{content}
+			</if>
+		</trim>
+	</select>
+</mapper>

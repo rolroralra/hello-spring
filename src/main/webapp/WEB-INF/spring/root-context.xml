@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd">
+
+	
+	<context:component-scan base-package="kr.co.acomp.hello">
+		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+	</context:component-scan>
+	
+	<context:property-placeholder location="classpath:config/database.properties" />
+	
+	<bean id="dataSource" class="org.springframework.jdbc.datasource.SimpleDriverDataSource"> 
+		<property name="driverClass" value="${db.driverClass}"/> 
+		<property name="url" value="${db.url}"/>
+		<property name="username" value="${db.username}"/> 
+		<property name="password" value="${db.password}"/> 
+	</bean>
+	
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource"/>
+		<property name="configLocation" value="classpath:mybatis-config.xml"/>
+		<property name="mapperLocations">
+			<list>
+				<value>classpath:mappers/*.xml</value>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg ref="sqlSessionFactory"/>
+	</bean>
+	
+	
+	<!-- Way1. implement Spring AOP by using @Aspect Annotation, aspectj-autoproxy -->
+	<aop:aspectj-autoproxy/>
+	
+	
+	<!-- Way2. implement Spring AOP by using POJO Class -->
+	<!-- <bean id="aspectBean" class="kr.co.acomp.hello.aspect.MeasuringAspect"/>
+	
+	<aop:config>
+		<aop:pointcut expression="execution(* kr.co.acomp.hello..*.*(..))" id="allPointCut"/>
+		<aop:aspect ref="aspectBean">
+			<aop:around method="measuringMethod" pointcut-ref="allPointCut"/>
+		</aop:aspect>
+	</aop:config> -->
+	
+	
+</beans>

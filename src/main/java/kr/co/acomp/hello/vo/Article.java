@@ -1,10 +1,12 @@
 package kr.co.acomp.hello.vo;
 
+import java.lang.reflect.Field;
+
 import lombok.Getter;
 import lombok.Setter;
 
 
-@Getter 
+@Getter
 @Setter
 public class Article {
 	private int articleId;
@@ -24,13 +26,18 @@ public class Article {
 		this.title = title;
 		this.content = content;
 	}
-	
-	
+
+	public Article(Article article) throws IllegalArgumentException, IllegalAccessException, NoSuchFieldException, SecurityException {
+		for (Field field : this.getClass().getDeclaredFields()) {
+			field.setAccessible(true);
+			field.set(this, field.get(article));
+		}
+	}
 
 	@Override
 	public String toString() {
 		return "Article [articleId=" + articleId + ", author=" + author + ", title=" + title + ", content=" + content
 				+ "]";
 	}
-	
+
 }

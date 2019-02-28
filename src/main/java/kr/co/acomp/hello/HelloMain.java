@@ -11,7 +11,6 @@ import kr.co.acomp.hello.vo.Article;
 
 public class HelloMain {
 	public static void main(String[] args) {
-		
 		@SuppressWarnings("resource")
 		AbstractApplicationContext ctx
 			= new ClassPathXmlApplicationContext("/spring-context.xml");
@@ -29,7 +28,6 @@ public class HelloMain {
 		
 		System.out.println(helloService.addTwoNumberAndSqaure(2, 3));
 		
-
 		
 		BbsService bbsService = ctx.getBean("bbsService", BbsService.class);
 		

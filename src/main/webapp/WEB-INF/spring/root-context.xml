@@ -48,6 +48,8 @@
 		<aop:aspect ref="aspectBean">
 			<aop:before method="measuringMethod" pointcut-ref="allPointCut"/>
 			<aop:around method="measuringMethod" pointcut-ref="allPointCut"/>
+			<aop:after-returning method="measuringMethod" pointcut="execution(* kr.co.acomp.hello..*.*(..))"/>
+			<aop:after-throwing method="measuringMethod" pointcut-ref="allPointCut"/>
 			<aop:after method="measuringMethod" pointcut="execution(* kr.co.acomp.hello..*.*(..))"/>
 		</aop:aspect>
 	</aop:config> -->

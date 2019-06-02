@@ -2,6 +2,8 @@ package kr.co.acomp.hello.service;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,15 +13,16 @@ import kr.co.acomp.hello.vo.Article;
 
 @Service
 public class BbsService {
-	
 	@Autowired
 	private ArticleDAO articleDAO;
 	
+	Logger LOGGER = LoggerFactory.getLogger(BbsService.class);
 //	public void setArticleDAO(ArticleDAO articleDAO) {
 //		this.articleDAO = articleDAO;
 //	}
 
 	public void registerArticle(Article article) {
+		LOGGER.info("XXXXXXXXXX");
 		articleDAO.insertArticle(article);
 	}
 

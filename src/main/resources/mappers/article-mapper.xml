@@ -19,7 +19,7 @@
 	</select>
 	
 	
-	<select id="selectArticlesByIds" resultType="kr.co.acomp.hello.vo.Article">
+	<select id="selectArticlesByIds" resultType="kr.co.acomp.hello.vo.Article" >
 		SELECT	id as articleId,
 				author,
 				title,

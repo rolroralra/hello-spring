@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>kr.co.acomp</groupId>
 	<artifactId>hello-web</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.0.2-SNAPSHOT</version>
 	<packaging>war</packaging>
 	<build>
 		<plugins>
@@ -144,6 +144,13 @@
 			<version>1.2.3</version>
 		</dependency>
 
+		<!-- https://mvnrepository.com/artifact/org.logback-extensions/logback-ext-spring -->
+		<dependency>
+			<groupId>org.logback-extensions</groupId>
+			<artifactId>logback-ext-spring</artifactId>
+			<version>0.1.4</version>
+		</dependency>
+
 
 
 
@@ -163,6 +170,13 @@
 			<version>1.18.4.0</version>
 			<type>pom</type>
 		</dependency>
+
+
+		<!-- https://mvnrepository.com/artifact/javax.servlet/javax.servlet-api -->
+		<!-- <dependency> <groupId>javax.servlet</groupId> <artifactId>javax.servlet-api</artifactId> 
+			<version>4.0.1</version> <scope>provided</scope> </dependency> -->
+
+
 
 
 	</dependencies>

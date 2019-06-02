@@ -38,18 +38,28 @@
 		<property name="username" value="spring"/> 
 		<property name="password" value="spring"/>
 	</bean> -->
+
 	
 	
+	<!-- Way1. implement Transaction by Annotation -->
+	<!-- <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource"></property>
+	</bean>
+	
+	<tx:annotation-driven transaction-manager="transactionManager"/> -->
+	
+	
+	<!-- Way2. implement Transaction by AOP -->
 	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
 		<property name="dataSource" ref="dataSource"></property>
 	</bean>
 	
 	<tx:advice id="txAdvice" transaction-manager="transactionManager">
 		<tx:attributes>
-			<tx:method name="*"/>
+			<tx:method name="*" />
+			<!-- <tx:method name="*" isolation="READ_COMMITTED"/> -->
 		</tx:attributes>
 	</tx:advice>
-	
 	
 	<aop:config>
 		<aop:pointcut expression="execution(* kr.co.acomp.hello.service.*Service.*(..))" id="transactionPointcut"/>

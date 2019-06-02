@@ -62,7 +62,6 @@ public class ArticleDAOTest {
 	// If mvc:resources configuration exists 
 	// for Static Web Resource,
 	// there will make some Error in ResourceHttpRequestHandler
-	@Ignore
 	@Test
 	public void testSelectArticleById() {
 //		ctx = new FileSystemXmlApplicationContext("file:src/main/webapp/WEB-INF/spring/*.xml");
@@ -70,22 +69,22 @@ public class ArticleDAOTest {
 //		ArticleDAO articleDAO = ctx.getBean("articleDAO", ArticleDAO.class);
 		
 //		Article article = articleDAO.selectArticleById(null);
-		Article article = articleDAO.selectArticleById(null);
+		Article article = articleDAO.selectArticleById("20061003");
 		
 		System.out.println(article);
 		
 		Assert.assertTrue(article.getAuthor().equals("lee"));
 		
-		
-		
 	}
 	
 	@Ignore
 	@Test
-	public void testInsertArticle() {
-		articleDAO.insertArticle(null);
+	public void tesarticletInsertArticle() {
+		Article article = new Article(20061003, "lee", "test", "this is test content.");
+		articleDAO.insertArticle(article);
 	}
 	
+	@Ignore
 	@Test
 	public void test() {
 //		articleDAO.insertArticle(new Article(1001, "shinyoun Kim", "test title 101", "....."));

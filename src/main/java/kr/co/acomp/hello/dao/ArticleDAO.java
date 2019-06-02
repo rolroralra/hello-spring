@@ -15,7 +15,6 @@ public class ArticleDAO {
 	SqlSession sqlSession;
 	
 	public void insertArticle(Article article) {
-		
 		sqlSession.insert(
 				"mappers.article-mapper.insertArticle", article);
 		System.out.println("insert ok...");

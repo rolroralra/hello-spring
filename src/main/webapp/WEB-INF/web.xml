@@ -18,6 +18,9 @@
 			/WEB-INF/spring/root-context.xml
 			/WEB-INF/spring/datasource.xml
 			<!-- /WEB-INF/spring/*.xml -->
+			<!-- /WEB-INF/spring/hibernate-context.xml -->
+			/WEB-INF/spring/jpa-context.xml
+			/WEB-INF/spring/datasource.xml
 		</param-value>
 	</context-param>
 

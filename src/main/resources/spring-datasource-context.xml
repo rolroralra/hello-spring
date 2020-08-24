@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans 
+	xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans 
+		http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+		http://www.springframework.org/schema/context 
+		http://www.springframework.org/schema/context/spring-context-4.3.xsd
+		http://www.springframework.org/schema/tx
+		http://www.springframework.org/schema/tx/spring-tx.xsd
+		http://www.springframework.org/schema/aop
+		http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+	
+	<!-- DB Property Placeholder Setting -->
+	<context:property-placeholder location="classpath:database.properties"/>
+	
+	<!-- DataSource Bean -->
+	<bean id="dataSource" class="org.springframework.jdbc.datasource.SimpleDriverDataSource">
+		<property name="driverClass" value="${db.driverClass}"/>
+		<property name="url" value="${db.url}"/>
+		<property name="username" value="${db.username}"/>
+		<property name="password" value="${db.password}"/>
+	</bean>
+	
+	<!-- SpringJdbcTemplate Bean -->
+	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+		<constructor-arg name="dataSource" ref="dataSource"/>
+	</bean>
+	
+	<bean id="namedParameterJdbcTemplate" class="org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate">
+		<constructor-arg name="dataSource" ref="dataSource"/>
+	</bean>
+	
+	<!-- DAO Bean Setting -->
+	<!-- 1. JDBC DAO -->
+	<bean id="JDBCProductDAO" class="sample.dao.impl.JDBCProductDAO">
+		<property name="dataSource" ref="dataSource"/>
+	</bean>
+	
+	<!-- 2. SpringJDBC DAO (using JdbcTemplate) -->
+	<bean id="SpringJDBCProductDAO" class="sample.dao.impl.SpringJDBCProductDAO">
+		<property name="jdbcTemplate" ref="jdbcTemplate"/>
+	</bean>
+	
+	<!-- 3. SpringJDBC DAO (using NamedParameterJdbcTemplate) -->
+	<bean id="NPJdbcTemplateProductDAO" class="sample.dao.impl.NPJdbcTemplateProductDAO">
+		<property name="npJdbcTemplate" ref="namedParameterJdbcTemplate"/>
+	</bean>
+	
+	<!-- <bean id="productDAO2" class="sample.dao.impl.ProductDAOImpl2"></bean> -->
+	
+	
+	<!-- Spring Transaction Setting -->
+	<!-- 1. TransactionManager Bean -->
+	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource"/>
+	</bean>
+	
+	<!-- 2. TransactionAdvice Setting -->
+	<tx:advice id="txAdvice" transaction-manager="transactionManager">
+		<tx:attributes>
+			<tx:method name="get*"/>
+			<tx:method name="update*" 
+				propagation="REQUIRED"	isolation="READ_COMMITTED"
+				timeout="10"
+				read-only="false"
+				rollback-for="sample.service.exception.BusinessException"/>
+			<tx:method name="insert*" 
+				propagation="REQUIRED"	isolation="READ_COMMITTED"
+				timeout="10"
+				read-only="false"
+				rollback-for="sample.service.exception.BusinessException"/>
+		</tx:attributes>
+	</tx:advice>
+	
+	<!-- 3. TransactionAdvice AOP Setting -->
+	<aop:config>
+		<aop:advisor advice-ref="txAdvice" pointcut="execution(* sample.service.*Service.*(..))"/>
+		<!-- <aop:advisor advice-ref="txAdvice" pointcut="@target(org.springframework.stereotype.Service)"/> -->
+	</aop:config>
+	
+	
+</beans>

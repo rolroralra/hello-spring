@@ -26,9 +26,13 @@
         </encoder>
     </appender>
 
+
+    <!-- Transaction Start, End Trace Logging (must be debug level) -->
     <logger name="org.springframework" level="info"/>
     <logger name="kr.co.acomp.hello" level="debug"/>
-    <!-- <logger name="org.hibernate" level="debug"/> -->
+    <logger name="sample" level="info"/>
+    <logger name="org.springframework.jdbc.datasource.DataSourceTransactionManager" level="debug"/>
+    <logger name="org.hibernate" level="info"/>
 
     <root level="debug">
     	<!-- Console에 로그를 출력하고자 할 때 사용 -->

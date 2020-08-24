@@ -31,12 +31,12 @@ public class BbsController {
 //		return "write_ok";
 //	}
 	
-	@GetMapping("")
-	public String index() {
-//		bbsService.testService();
-		bbsService.registerArticle(new Article(5, "kim", "test", "test"));
-		return "index";
-	}
+//	@GetMapping("")
+//	public String index() {
+////		bbsService.testService();
+////		bbsService.registerArticle(new Article(5, "kim", "test", "test"));
+//		return "index";
+//	}
 	
 	
 	@RequestMapping(value="/", method=RequestMethod.GET)

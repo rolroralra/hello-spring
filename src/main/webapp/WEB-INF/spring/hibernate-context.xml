@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans 
+	xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans 
+		http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+		http://www.springframework.org/schema/context 
+		http://www.springframework.org/schema/context/spring-context-4.3.xsd
+		http://www.springframework.org/schema/tx
+		http://www.springframework.org/schema/tx/spring-tx.xsd
+		http://www.springframework.org/schema/aop
+		http://www.springframework.org/schema/aop/spring-aop.xsd">
+	
+	<!-- DB Property Placeholder Setting -->
+	<context:property-placeholder location="classpath:database.properties"/>
+	
+	<!-- DataSource Bean -->
+	<bean id="dataSource" class="org.springframework.jdbc.datasource.SimpleDriverDataSource">
+		<property name="driverClass" value="${db.driverClass}"/>
+		<property name="url" value="${db.url}"/>
+		<property name="username" value="${db.username}"/>
+		<property name="password" value="${db.password}"/>
+	</bean>
+	
+	<!-- Hibernate SessionFactory Bean -->
+	<bean id="sessionFactory" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="mappingResources">
+			<list>
+				<value>sample/dao/hibernate/Person.hbm.xml</value>
+			</list>
+		</property>
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
+				<prop key="hibernate.show_sql">true</prop>
+				<!-- <prop key="hibernate.flushmode">COMMIT</prop> -->
+			</props>
+		</property>
+	</bean>
+
+	<!-- HibernateTemplate Bean -->
+	<bean id="hibernateTemplate" class="org.springframework.orm.hibernate5.HibernateTemplate">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	
+	<!-- 4. Hibernate DAO -->
+	<bean id="hibernatePersonDAO" class="sample.dao.impl.HibernatePersonDAO">
+		<property name="hibernateTemplate" ref="hibernateTemplate" />
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	
+	<!-- HibernateTransactionManager Bean -->
+	<bean id="transactionManager" class="org.springframework.orm.hibernate5.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	
+	<!-- TransactionAdvice Setting -->
+	<tx:advice id="txAdvice" transaction-manager="transactionManager">
+		<tx:attributes>
+			<tx:method name="get*"/>
+			<tx:method name="find*"/>
+			<tx:method name="remove*" 
+				propagation="REQUIRED"	isolation="READ_COMMITTED"
+				timeout="10"
+				read-only="false"
+				rollback-for="sample.service.exception.BusinessException"/>
+			<tx:method name="add*" 
+				propagation="REQUIRED"	isolation="READ_COMMITTED"
+				timeout="10"
+				read-only="false"
+				rollback-for="sample.service.exception.BusinessException"/>
+			<tx:method name="change*" 
+				propagation="REQUIRED"	isolation="READ_COMMITTED"
+				timeout="10"
+				read-only="false"
+				rollback-for="sample.service.exception.BusinessException"/>
+		</tx:attributes>
+	</tx:advice>
+	
+	<!-- TransactionAdvice AOP Setting -->
+	<aop:config>
+		<aop:advisor advice-ref="txAdvice" pointcut="execution(* sample.service.*Service.*(..))"/>
+	</aop:config>
+	
+</beans>

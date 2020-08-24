@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans 
+	default-lazy-init="true"
+	xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans 
+		http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context
+		http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/mvc
+		http://www.springframework.org/schema/mvc/spring-mvc.xsd
+		http://www.springframework.org/schema/util
+		http://www.springframework.org/schema/util/spring-util.xsd
+		http://www.springframework.org/schema/aop
+		http://www.springframework.org/schema/aop/spring-aop.xsd
+		http://www.springframework.org/schema/tx
+		http://www.springframework.org/schema/tx/spring-tx.xsd">
+	
+	<!-- Property File Setting -->
+	<!-- <util:properties id="msgProperties" location="classpath:message.properties"/>	 -->
+	<!-- <context:property-placeholder location="classpath:message.properties"/> -->
+	
+	<!-- Import the Bean Definition File -->
+	<import resource="spring-datasource-context.xml"/>
+	<import resource="spring-aop-config-context.xml"/>
+
+	
+	<!-- Bean Definition -->
+	<bean id="productService" class="sample.service.impl.ProductServiceImpl"
+			autowire="default" init-method="postConstruct" destroy-method="preDestory">
+		
+		<!-- Way1. setter injection -->	
+		<property name="productDAO" ref="NPJdbcTemplateProductDAO"></property>
+		
+		<!-- Way2. constructor injection -->
+		<!-- <constructor-arg ref="NPJdbcTemplateProductDAO"></constructor-arg> -->
+	</bean>	
+	
+	<bean id="customEventListener" class="sample.event.listener.CustomEventListener"/>
+	
+	<bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
+		<property name="basename" value="message/messages"/>
+		<property name="defaultEncoding" value="UTF-8"/>
+	</bean>
+	
+</beans>

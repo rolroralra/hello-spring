@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow xmlns="http://www.springframework.org/schema/webflow"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/webflow
+        http://www.springframework.org/schema/webflow/spring-webflow.xsd" 
+    start-state="enter">
+
+	<var name="customer" class="com.customer.biz.domain.Customer"/>
+	
+	<input name="id" value="flashScope.id" required="true"/>
+	
+	<on-start>
+		<evaluate expression="customerService.findById(flashScope.id)" result="flowScope.customer" />
+	</on-start>
+	
+	<view-state id="enter" view="customer/register/enter" model="customer">
+		<transition on="proceed" to="review" />
+		<transition on="cancel" to="canceled" validate="false" />
+	</view-state>
+	
+	<view-state id="review" view="customer/register/review" model="customer">
+		<transition on="confirmed" to="register" />
+		<transition on="revised" to="enter" validate="false" />
+		<transition on="cancel" to="canceled" validate="false" />
+	</view-state>
+	
+	<action-state id="register">
+		<evaluate expression="customerService.register(flowScope.customer)" />
+		<transition on-exception="com.customer.biz.exception.DataNotFoundException" />
+		<transition on="*" to="registered" />
+	</action-state>
+	
+	<end-state id="registered" view="customer/list" />
+	
+	<end-state id="canceled" view="flowRedirect:registerCustomer" />
+	
+</flow>

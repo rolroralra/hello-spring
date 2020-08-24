@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans 
+		http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+		http://www.springframework.org/schema/aop 
+		http://www.springframework.org/schema/aop/spring-aop-4.3.xsd">
+	
+	<!-- AOP Setting -->
+	
+	<!-- Way1. Bean Definition File Setting -->
+	<bean id="productAspect" class="sample.aspect.ProductAspect"/>
+	
+	<!-- <aop:config>
+		<aop:pointcut expression="execution(* sample.service.ProductService.findProduct(..))" id="allPointCut"/>
+		<aop:aspect id="aspectProduct" ref="productAspect">
+			<aop:after method="After" pointcut-ref="allPointCut"/>
+			<aop:before method="Before" pointcut-ref="allPointCut"/>
+			
+			<aop:around method="Around" pointcut-ref="allPointCut"/>
+			
+			<aop:after-returning method="AfterReturning" pointcut-ref="allPointCut" />
+			<aop:after-throwing method="AfterThrowing" pointcut-ref="allPointCut"/>
+		</aop:aspect>
+	</aop:config> -->
+
+	<!-- Way2. Annotation Setting -->
+	<!-- <aop:aspectj-autoproxy/> -->
+</beans>

@@ -11,8 +11,26 @@
 	<context:component-scan base-package="kr.co.acomp.hello">
 		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
 	</context:component-scan>
-	
-	<context:property-placeholder location="classpath:config/database.properties" />
+
+	<context:component-scan base-package="com.customer">
+		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+	</context:component-scan>
+
+	<context:component-scan base-package="sample.service">
+		<context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+	</context:component-scan>
+
+	<!-- MessageSource Seting -->
+	<bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+		<property name="basename" value="/WEB-INF/resources/message/messages_kr"/>
+		<property name="defaultEncoding" value="UTF-8"/>
+	</bean>
+
+	<bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean">
+		<property name="validationMessageSource" ref="messageSource"/>
+	</bean>
+
+	<!-- <context:property-placeholder location="classpath:config/database.properties" />
 	
 	<bean id="dataSource" class="org.springframework.jdbc.datasource.SimpleDriverDataSource"> 
 		<property name="driverClass" value="${db.driverClass}"/> 
@@ -33,7 +51,7 @@
 	
 	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
 		<constructor-arg ref="sqlSessionFactory"/>
-	</bean>
+	</bean> -->
 	
 	
 	<!-- Way1. implement Spring AOP by using @Aspect Annotation, aspectj-autoproxy -->
@@ -46,7 +64,11 @@
 	<aop:config>
 		<aop:pointcut expression="execution(* kr.co.acomp.hello..*.*(..))" id="allPointCut"/>
 		<aop:aspect ref="aspectBean">
+			<aop:before method="measuringMethod" pointcut-ref="allPointCut"/>
 			<aop:around method="measuringMethod" pointcut-ref="allPointCut"/>
+			<aop:after-returning method="measuringMethod" pointcut="execution(* kr.co.acomp.hello..*.*(..))"/>
+			<aop:after-throwing method="measuringMethod" pointcut-ref="allPointCut"/>
+			<aop:after method="measuringMethod" pointcut="execution(* kr.co.acomp.hello..*.*(..))"/>
 		</aop:aspect>
 	</aop:config> -->
 	
